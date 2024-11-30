@@ -28,19 +28,24 @@ function Form() {
 
 function PackingList() {
   return (
-    <ul className="list">
-      {initialItems.map((item) => (
-        <Item item={item} />
-      ))}
-    </ul>
+    <div className="list">
+      <ul>
+        {initialItems.map((item) => (
+          <Item item={item} />
+        ))}
+      </ul>
+    </div>
   );
 }
 
-function Item(props) {
+function Item({ item }) {
   return (
-    <li key={props.item.id}>
+    <li key={item.id}>
       <input type="checkbox"></input>
-      {props.item.description}
+      <span>
+        {item.quantity} {item.description}
+      </span>
+      <button>❌&times;</button>
     </li>
   );
 }
