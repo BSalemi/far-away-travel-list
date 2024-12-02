@@ -34,7 +34,7 @@ function Form() {
         name="quantity"
         id="quantity"
         value={quantity}
-        onChange={(e) => setQuantity(e.target.value)}
+        onChange={(e) => setQuantity(Number(e.target.value))}
       >
         {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => {
           return (
