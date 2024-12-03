@@ -26,7 +26,15 @@ function Form() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!description) {
+      return;
+    }
+    const newItem = { description, quantity, packed: false, id: Date.now() };
+
+    setDescription("");
+    setQuantity(1);
   }
+
   return (
     <div className="add-form" onSubmit={handleSubmit}>
       <h3>What do you need for your 😍 trip?</h3>
