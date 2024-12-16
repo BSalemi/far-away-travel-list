@@ -78,7 +78,7 @@ function Form({ onAddItems }) {
   );
 }
 
-function PackingList({ items }) {
+function PackingList({ items, onDeleteItem }) {
   return (
     <div className="list">
       <ul>
@@ -97,7 +97,7 @@ function Item({ item, onDeleteItem }) {
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.quantity} {item.description}
       </span>
-      <button>❌&times;</button>
+      <button onClick={() => onDeleteItem(item.id)}>❌&times;</button>
     </li>
   );
 }
