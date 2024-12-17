@@ -1,10 +1,4 @@
 import { useState } from "react";
-import { onDeactivated } from "vue";
-
-const initialItems = [
-  { id: 1, description: "Passports", quantity: 2, packed: false },
-  { id: 2, description: "Socks", quantity: 12, packed: true },
-];
 
 export default function App() {
   const [items, setItems] = useState([]);
@@ -17,11 +11,23 @@ export default function App() {
     setItems((items) => items.filter((item) => item.id !== id));
   }
 
+  function handlePackItem(id) {
+    setItems((items) =>
+      items.map((item) =>
+        item.id === id ? { ...item, packed: !item.packed } : item
+      )
+    );
+  }
+
   return (
     <div className="app">
       <Logo />
       <Form onAddItems={handleAddItems} />
-      <PackingList onDeleteItem={handleDeleteItem} items={items} />
+      <PackingList
+        onPackItem={handlePackItem}
+        onDeleteItem={handleDeleteItem}
+        items={items}
+      />
       <Stats />
     </div>
   );
@@ -41,7 +47,6 @@ function Form({ onAddItems }) {
       return;
     }
     const newItem = { description, quantity, packed: false, id: Date.now() };
-    console.log(newItem, "new");
 
     onAddItems(newItem);
 
@@ -78,22 +83,30 @@ function Form({ onAddItems }) {
   );
 }
 
-function PackingList({ items, onDeleteItem }) {
+function PackingList({ items, onDeleteItem, onPackItem }) {
   return (
     <div className="list">
       <ul>
         {items.map((item, key) => (
-          <Item item={item} onDeleteItem={onDeleteItem} />
+          <Item
+            item={item}
+            onDeleteItem={onDeleteItem}
+            onPackItem={onPackItem}
+          />
         ))}
       </ul>
     </div>
   );
 }
 
-function Item({ item, onDeleteItem }) {
+function Item({ item, onDeleteItem, onPackItem }) {
   return (
     <li key={item.id}>
-      <input type="checkbox" checked={item.packed}></input>
+      <input
+        type="checkbox"
+        onChange={() => onPackItem(item.id)}
+        value={item.packed}
+      ></input>
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.quantity} {item.description}
       </span>
