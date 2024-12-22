@@ -28,7 +28,7 @@ export default function App() {
         onDeleteItem={handleDeleteItem}
         items={items}
       />
-      <Stats />
+      <Stats items={items} />
     </div>
   );
 }
@@ -119,10 +119,17 @@ function Item({ item, onDeleteItem, onPackItem }) {
   );
 }
 
-function Stats() {
+function Stats({ items }) {
+  const totalItems = items.length;
+  const packedItems = items.filter((item) => item.packed);
+  const percentagePacked = (packedItems.length / totalItems) * 100;
+
   return (
     <footer className="stats">
-      <em>💼 You have X items on your list. and you already packed x%</em>
+      <em>
+        💼 You have {totalItems} item(s) on your list, and you've packed{" "}
+        {percentagePacked}% so far.
+      </em>
     </footer>
   );
 }
