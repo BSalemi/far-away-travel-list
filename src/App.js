@@ -120,6 +120,13 @@ function Item({ item, onDeleteItem, onPackItem }) {
 }
 
 function Stats({ items }) {
+  if (!items.length) {
+    return (
+      <p className="stats">
+        <em>Start adding some items to your packing list! 🚀</em>
+      </p>
+    );
+  }
   const totalItems = items.length;
   const packedItems = items.filter((item) => item.packed);
   const percentagePacked = (packedItems.length / totalItems) * 100;
