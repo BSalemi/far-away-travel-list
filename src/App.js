@@ -3,7 +3,7 @@ import { useState } from "react";
 export default function App() {
   const [items, setItems] = useState([]);
 
-  function handleClearItems() {
+  function handleClearList() {
     setItems(() => []);
   }
 
@@ -31,7 +31,7 @@ export default function App() {
         onPackItem={handlePackItem}
         onDeleteItem={handleDeleteItem}
         items={items}
-        onClearItems={handleClearItems}
+        onClearList={handleClearList}
       />
       <Stats items={items} />
     </div>
@@ -88,7 +88,7 @@ function Form({ onAddItems }) {
   );
 }
 
-function PackingList({ items, onDeleteItem, onPackItem, onClearItems }) {
+function PackingList({ items, onDeleteItem, onPackItem, onClearList }) {
   const [sortBy, setSortBy] = useState("input");
 
   let sortedItems;
@@ -123,7 +123,7 @@ function PackingList({ items, onDeleteItem, onPackItem, onClearItems }) {
           <option value="packed">Sort by packed status</option>
         </select>
 
-        <button onClick={() => onClearItems()}>Clear List</button>
+        <button onClick={() => onClearList()}>Clear List</button>
       </div>
     </div>
   );
