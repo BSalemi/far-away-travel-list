@@ -4,7 +4,11 @@ export default function App() {
   const [items, setItems] = useState([]);
 
   function handleClearList() {
-    setItems(() => []);
+    const confirmed = window.confirm(
+      "Are you sure you want to delete all items?"
+    );
+
+    if (confirmed) setItems([]);
   }
 
   function handleAddItems(item) {
@@ -123,7 +127,7 @@ function PackingList({ items, onDeleteItem, onPackItem, onClearList }) {
           <option value="packed">Sort by packed status</option>
         </select>
 
-        <button onClick={() => onClearList()}>Clear List</button>
+        <button onClick={onClearList}>Clear List</button>
       </div>
     </div>
   );
